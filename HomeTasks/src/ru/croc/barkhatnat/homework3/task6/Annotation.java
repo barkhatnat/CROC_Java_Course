@@ -13,7 +13,8 @@ public class Annotation {
     public String toString() {
         return figure.toString() + signature;
     }
-    public void move(int dx, int dy){
-        figure.move(dx,dy);
+
+    public void move(int dx, int dy) {
+        figure.move(dx, dy);
     }
 }

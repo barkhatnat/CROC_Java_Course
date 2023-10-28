@@ -2,7 +2,7 @@ package ru.croc.barkhatnat.homework3.task6;
 
 import ru.croc.barkhatnat.homework3.task6.exceptions.RadiusException;
 
-public class Circle extends Figure implements Movable {
+public class Circle extends Figure {
     public int x0, y0, r;
 
     public Circle(int x0, int y0, int r) throws RadiusException {

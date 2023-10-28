@@ -2,7 +2,7 @@ package ru.croc.barkhatnat.homework3.task6;
 
 import ru.croc.barkhatnat.homework3.task6.exceptions.RectangleException;
 
-public class Rectangle extends Figure implements Movable {
+public class Rectangle extends Figure {
     private int x1, y1, x2, y2;
 
     public Rectangle(int x1, int y1, int x2, int y2) throws RectangleException {
@@ -57,7 +57,7 @@ public class Rectangle extends Figure implements Movable {
     private void setX2(int x2) throws RectangleException {
         if (this.x2 > x1) {
             this.x2 = x2;
-        }else {
+        } else {
             throw new RectangleException("Rectangles are defined by the coordinates of the lower left and upper right corners.");
         }
     }
@@ -69,7 +69,7 @@ public class Rectangle extends Figure implements Movable {
     private void setY2(int y2) throws RectangleException {
         if (this.y2 > y1) {
             this.y2 = y2;
-        }else {
+        } else {
             throw new RectangleException("Rectangles are defined by the coordinates of the lower left and upper right corners.");
         }
     }
