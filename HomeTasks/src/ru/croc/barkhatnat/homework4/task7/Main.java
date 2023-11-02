@@ -18,11 +18,15 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws NotImportHouseholdAppliance, BadPhoneNumberException, BadListOrderSizeException, OrderStatusException {
         InductionStove inductionStove = new InductionStove(15472, "Description for InductionStove", new Dimensions(1f, 1.3f, 2f), 41.8f, 280, 4, "Russia");
-        RobotVacuumCleaner robotVacuumCleaner = new ClassicRobotVacuumCleaner(35421.85, "Description for RobotVacuumCleaner", new Dimensions(0.3f, 0.3f, 0.15f), 42, 15, 2, "Japan");
+        RobotVacuumCleaner robotVacuumCleaner = new ClassicRobotVacuumCleaner(35421.86755, "Description for RobotVacuumCleaner", new Dimensions(0.3f, 0.3f, 0.15f), 42, 15, 2, "Japan");
         Client nataly = new Client("Natalia Barkhatova", "88005553535", false);
         Order order = new Order(new ArrayList<>(Arrays.asList(inductionStove, robotVacuumCleaner)), nataly, LocalDateTime.now());
         order.collectOrder();
         System.out.println(order.getOrderNotification());
         System.out.println(order.canReceiveOrder());
+        order.issueOrder();
+        System.out.println(order.getListOfItems());
+        order.getListOfItems().clear();
+        System.out.println(order.getListOfItems());
     }
 }

@@ -1,8 +1,11 @@
 package ru.croc.barkhatnat.homework4.task7.classes;
 
 import ru.croc.barkhatnat.homework3.task5.intefaces.IHouseholdAppliance;
+import ru.croc.barkhatnat.homework4.task7.interfaces.NotificatorInterface;
 
-class Notificator {
+import java.time.format.DateTimeFormatter;
+
+class Notificator implements NotificatorInterface {
     Order order;
 
     public Notificator(Order order) {
@@ -10,26 +13,26 @@ class Notificator {
     }
 
     public String getNotification() {
-        String ending = "ая";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Уважаем");
         if (order.getClient().getIsMale()) {
-            ending = "ый";
+            stringBuilder.append("ый ");
+        } else {
+            stringBuilder.append("ая ");
         }
-        return String.format("Уважаем%s %s!\n" +
-                        "\n" +
-                        "Рады сообщить, что Ваш заказ %s готов к выдаче.\n" +
-                        "\n" +
-                        "Состав заказа:\n" +
-                        "%s\n" +
-                        "\n" +
-                        "\n" +
-                        "Сумма к оплате: %.3f₽\n" +
-                        "\n" +
-                        "Срок хранения заказа: до %td.%tm.%ty.\n" +
-                        "\n" +
-                        "\n" +
-                        "С наилучшими пожеланиями, магазин “Кошки и картошки”\n", ending, order.getClient().getFullName(),
-                order.getId(), getListOfItemsOutput(), order.getAmount(), order.getCollectedDateTime().plusWeeks(2),
-                order.getCollectedDateTime().plusWeeks(2), order.getCollectedDateTime().plusWeeks(2));
+        stringBuilder.append(order.getClient().getFullName()).append("!");
+        stringBuilder.append("\n\n");
+        stringBuilder.append("Рады сообщить, что Ваш заказ ");
+        stringBuilder.append(order.getId());
+        stringBuilder.append(" готов к выдаче.\n\nСостав заказа:");
+        stringBuilder.append(getListOfItemsOutput());
+        stringBuilder.append("\n\nСумма к оплате: ");
+        stringBuilder.append(order.getFormattedAmount());
+        stringBuilder.append("\n\n\nСрок хранения заказа: до ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+        stringBuilder.append(order.getCollectedDateTime().plusWeeks(2).format(formatter));
+        stringBuilder.append("\n\n\nС наилучшими пожеланиями, магазин “Кошки и картошки”\n");
+        return stringBuilder.toString();
     }
 
     private String getListOfItemsOutput() {

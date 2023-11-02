@@ -1,8 +1,9 @@
 package ru.croc.barkhatnat.homework4.task7.classes;
 
 import ru.croc.barkhatnat.homework4.task7.exceptions.BadPhoneNumberException;
+import ru.croc.barkhatnat.homework4.task7.interfaces.ClientInterface;
 
-public class Client {
+public class Client implements ClientInterface {
     private String fullName;
     private String phoneNumber;
     private boolean isMale;
