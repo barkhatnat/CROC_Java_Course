@@ -1,4 +1,4 @@
-package ru.croc.barkhatnat.hometask6.task10;
+package ru.croc.barkhatnat.homework6.task10;
 
 import java.util.*;
 import java.util.function.Predicate;
