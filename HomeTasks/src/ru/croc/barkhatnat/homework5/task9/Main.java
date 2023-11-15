@@ -15,7 +15,7 @@ public class Main {
         comments.add("У тебя ужпсный костюм на Хеллоуин!"); //1 опечатка
         comments.add("У тебя ужастсный костюм на Хеллоуин!"); //больше 1 опечатки
         Set<String> blackList = new HashSet<>();
-        blackList.add("плохой");
+        blackList.add("Плохой");
         blackList.add("ужасный");
         filter.filterComments(comments, blackList);
         for (String comment : comments) {

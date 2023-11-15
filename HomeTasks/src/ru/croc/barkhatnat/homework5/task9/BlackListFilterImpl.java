@@ -20,7 +20,8 @@ public class BlackListFilterImpl implements BlackListFilter {
         for (String word : words) {
             String lowerCaseWord = word.toLowerCase();
             for (String badWord : blackList) {
-                if (lowerCaseWord.equals(badWord) || isMisprintedOnce(lowerCaseWord, badWord)) {
+                String lowerCaseBadWord = badWord.toLowerCase();
+                if (lowerCaseWord.equals(lowerCaseBadWord) || isMisprintedOnce(lowerCaseWord, lowerCaseBadWord)) {
                     int index = originalComment.indexOf(word);
                     String censoredWord = "*".repeat(word.length());
                     StringBuilder censoredComment = new StringBuilder(originalComment);
