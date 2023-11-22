@@ -8,7 +8,11 @@ import java.util.HashSet;
 public class MenuCreator {
     private ArrayList<Dish> menu;
 
-    private void findDishes(HashSet<Ingredient> notAvailableIngredients, HashMap<Chef, HashSet<Dish>> chefSkills, int dishNumber) {
+    public MenuCreator(HashSet<Ingredient> notAvailableIngredients, HashMap<Chef, HashSet<Dish>> chefSkills, int dishNumber) {
+        createMenu(notAvailableIngredients, chefSkills, dishNumber);
+    }
+
+    private void createMenu(HashSet<Ingredient> notAvailableIngredients, HashMap<Chef, HashSet<Dish>> chefSkills, int dishNumber) {
         for (Chef chef : chefSkills.keySet()) {
             if (chef.isOnWork()) {
                 for (Dish dish : chefSkills.get(chef)) {

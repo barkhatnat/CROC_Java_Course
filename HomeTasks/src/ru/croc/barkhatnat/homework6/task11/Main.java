@@ -6,6 +6,7 @@ import ru.croc.barkhatnat.homework6.task11.classes.Dish;
 import ru.croc.barkhatnat.homework6.task11.classes.Ingredient;
 import ru.croc.barkhatnat.homework6.task11.enums.Category;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,5 +30,6 @@ public class Main {
         chefSkills.put(chef2,new HashSet<>(List.of(dish2)));
         chefSkills.put(chef2, new HashSet<>(List.of(dish3)));
         ChefSkills chefSkillsClass = new ChefSkills(chefSkills);
+//        Menu menu = new Menu(HashSet<Ingredient>(List.of(chicken)), chefSkillsClass);
     }
 }
