@@ -1,5 +1,7 @@
 package ru.croc.barkhatnat.homework6.task11.classes;
 
+import java.util.Objects;
+
 public class Ingredient {
     private String name;
     private boolean inStock;
@@ -24,5 +26,23 @@ public class Ingredient {
 
     public void setInStock(boolean inStock) {
         this.inStock = inStock;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj){
+            return true;
+        }
+        if (!(obj instanceof Ingredient ingredient)){
+            return false;
+        }
+
+        return name.equals(ingredient.name);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

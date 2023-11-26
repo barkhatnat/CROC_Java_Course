@@ -4,22 +4,24 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class ChefSkills {
-    public HashMap<Chef, HashSet<Dish>> skills = new HashMap<>();
+    private HashMap<Chef, HashSet<Dish>> skills;
 
     public ChefSkills(HashMap<Chef, HashSet<Dish>> skills) {
 
-        this.skills = skills;
+        this.skills = new HashMap<>(skills);
     }
 
     public HashMap<Chef, HashSet<Dish>> getSkills() {
-        return skills;
+        return new HashMap<>(skills);
     }
 
     private void setSkills(HashMap<Chef, HashSet<Dish>> skills) {
-        this.skills = skills;
+
+        this.skills = new HashMap<>(skills);
     }
 
     public void addNewChef(Chef chef, HashSet<Dish> dishes) {
+
         skills.put(chef, dishes);
     }
 
