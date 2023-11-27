@@ -41,7 +41,6 @@ class HelpServer extends Thread implements AutoCloseable {
     }
 
 
-
     @Override
     public void close() throws IOException {
         socket.close();
