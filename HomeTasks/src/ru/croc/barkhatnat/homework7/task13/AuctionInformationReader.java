@@ -11,12 +11,14 @@ public class AuctionInformationReader {
     private String itemName;
     private int startBid;
     ArrayList<String> participants = new ArrayList<>();
-    public AuctionInformationReader(String fileIot, String fileParticipants){
+
+    public AuctionInformationReader(String fileIot, String fileParticipants) {
         this.fileIot = fileIot;
         this.fileParticipants = fileParticipants;
         readAndSaveInformation();
     }
-    private void readAndSaveInformation(){
+
+    private void readAndSaveInformation() {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileIot))) {
             itemName = reader.readLine().trim();
             startBid = Integer.parseInt(reader.readLine().trim());
@@ -32,13 +34,16 @@ public class AuctionInformationReader {
             System.err.println("Error reading participants file: " + ex.getMessage());
         }
     }
-    public ArrayList<String> getParticipants(){
-        return  new ArrayList<>(participants);
+
+    public ArrayList<String> getParticipants() {
+        return new ArrayList<>(participants);
     }
-    public String getItemName(){
+
+    public String getItemName() {
         return itemName;
     }
-    public int getStartBid(){
+
+    public int getStartBid() {
         return startBid;
     }
 }

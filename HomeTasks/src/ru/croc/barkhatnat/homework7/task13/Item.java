@@ -22,7 +22,6 @@ public class Item implements ItemInterface {
     private final Lock bidLock = new ReentrantLock();
 
 
-
     public Item(String itemName, int startBid, Duration auctionDuration) {
         this.currentBid = new AtomicReference<>(startBid);
         this.itemName = itemName;
@@ -35,18 +34,19 @@ public class Item implements ItemInterface {
     public synchronized void placeBid(String newBidderName, int newPrice) throws BidException {
         bidLock.lock();
         try {
-        if (LocalDateTime.now().isBefore(stopTime)) {
-            int currentBidValue = currentBid.get();
-            if (newPrice > currentBidValue) {
+            if (LocalDateTime.now().isBefore(stopTime)) {
+                int currentBidValue = currentBid.get();
+                if (newPrice > currentBidValue) {
                     currentBid.set(newPrice);
                     bidderName = newBidderName;
                     winnerName.set(bidderName);
-            }else {
-                throw new BidException("The new bid must be higher than the old bid: " + getFormattedBid());
+                } else {
+                    throw new BidException("The new bid must be higher than the old bid: " + getFormattedBid());
+                }
+            } else {
+                throw new BidException("Bidding on this lot has ended at " + getFormattedDate());
             }
-        } else {
-            throw new BidException("Bidding on this lot has ended at " + getFormattedDate());
-        }}finally {
+        } finally {
             bidLock.unlock();
         }
     }
@@ -76,7 +76,7 @@ public class Item implements ItemInterface {
 
     public String getFormattedBid() {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("ru", "RU"));
-        return currencyFormatter.format(currentBid.get()) + "₽";
+        return currencyFormatter.format(currentBid.get());
     }
 
     public String getFormattedDate() {
