@@ -65,8 +65,8 @@ public class DbActions {
         System.out.print("TABLE PET\n");
         while (petResult.next()) {
             System.out.print("ID: " + petResult.getInt("medical_card"));
-            System.out.print(", Surname: " + petResult.getString("name"));
-            System.out.print(", Name: " + petResult.getInt("age") + "\n");
+            System.out.print(", Name: " + petResult.getString("name"));
+            System.out.print(", Age: " + petResult.getInt("age") + "\n");
         }
         ResultSet compositionResult = statement.executeQuery("select * from client_pet_composition");
         System.out.print("TABLE CLIENT_PET_COMPOSITION\n");
