@@ -20,7 +20,7 @@ public class DbActions {
         DbActions.connect();
         statement.executeUpdate("CREATE TABLE client (id integer primary key , surname varchar NOT NULL , name varchar NOT NULL , phone_number varchar NOT NULL UNIQUE )");
         statement.executeUpdate("CREATE TABLE pet (medical_card integer primary key , name varchar NOT NULL , age integer NOT NULL )");
-        statement.executeUpdate("CREATE TABLE client_pet_composition (client_id integer references client(id), pet_id integer references pet(medical_card), UNIQUE (pet_id, client_id))");
+        statement.executeUpdate("CREATE TABLE client_pet_composition (id integer AUTO_INCREMENT PRIMARY KEY,client_id integer references client(id), pet_id integer references pet(medical_card), UNIQUE (pet_id, client_id))");
     }
 
     public static void fillDb(List<List<String>> records) throws SQLException {
@@ -47,7 +47,7 @@ public class DbActions {
             statement.executeUpdate(sql);
         }
         for (List<String> composition : compositions) {
-            sql = "INSERT INTO client_pet_composition VALUES (" + Integer.parseInt(composition.get(0)) + "," + Integer.parseInt(composition.get(1)) + ")";
+            sql = "INSERT INTO client_pet_composition (client_id, pet_id) VALUES (" + Integer.parseInt(composition.get(0)) + "," + Integer.parseInt(composition.get(1)) + ")";
             statement.executeUpdate(sql);
         }
     }
@@ -71,7 +71,8 @@ public class DbActions {
         ResultSet compositionResult = statement.executeQuery("select * from client_pet_composition");
         System.out.print("TABLE CLIENT_PET_COMPOSITION\n");
         while (compositionResult.next()) {
-            System.out.print("ID of client: " + compositionResult.getInt("client_id"));
+            System.out.print("ID " + compositionResult.getInt("id"));
+            System.out.print(", ID of client: " + compositionResult.getInt("client_id"));
             System.out.print(", ID of pet: " + compositionResult.getInt("pet_id") + "\n");
         }
     }
