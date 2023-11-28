@@ -14,5 +14,3 @@
 ⠀⠀⠀⢹⡀⠀⠘⠲⠖⠃⣼⠋⠉⠁⠉⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠛⠦⣤⣤⠴⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ```
-Пример работы программы из задачи №15
-![exampleTask15](https://github.com/barkhatnat/CROC_Java_Course/assets/113011969/7f0134fd-f9c4-4cfb-a3df-cc30173c2e48)
