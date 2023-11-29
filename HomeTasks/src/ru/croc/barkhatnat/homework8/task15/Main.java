@@ -15,6 +15,7 @@ public class Main {
             createDb();
             fillDb(records);
             showDb();
+            closeDb();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
