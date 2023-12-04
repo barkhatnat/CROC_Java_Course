@@ -8,8 +8,6 @@ import static ru.croc.barkhatnat.homework8.task15.DbActions.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-//        String fileInfo = "HomeTasks\\src\\ru\\croc\\barkhatnat\\homework8\\task15\\info.csv";
-//        String fileInfo = "C:\\Users\\Mvideo\\Documents\\GitHub\\CROC_Java_Course\\HomeTasks\\src\\ru\\croc\\barkhatnat\\homework8\\task15\\info.csv";
         try {
             List<List<String>> records = readCsv(args[0]);
             createDb();

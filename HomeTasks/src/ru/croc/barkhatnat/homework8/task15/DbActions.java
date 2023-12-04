@@ -11,6 +11,7 @@ public class DbActions {
     static String password = "";
     public static Statement statement;
     public static Connection connection;
+    private DbActions(){}
 
     public static void connectDb() throws SQLException {
         connection = DriverManager.getConnection(connectionUrl, user, password);
@@ -21,11 +22,10 @@ public class DbActions {
         DbActions.connectDb();
         statement.executeUpdate("CREATE TABLE client (id integer primary key , surname varchar NOT NULL , name varchar NOT NULL , phone_number varchar NOT NULL UNIQUE)");
         statement.executeUpdate("CREATE TABLE pet (medical_card integer primary key , name varchar NOT NULL , age integer NOT NULL )");
-        statement.executeUpdate("CREATE TABLE client_pet_composition (id integer AUTO_INCREMENT PRIMARY KEY,client_id integer references client(id) ON DELETE CASCADE , pet_id integer references pet(medical_card) ON DELETE CASCADE, UNIQUE (pet_id, client_id))");
+        statement.executeUpdate("CREATE TABLE client_pet_composition (client_id integer references client(id) ON DELETE CASCADE , pet_id integer references pet(medical_card) ON DELETE CASCADE, UNIQUE (pet_id, client_id))");
     }
 
     public static void fillDb(List<List<String>> records) throws SQLException {
-        String sql;
         List<List<String>> clients = new ArrayList<>();
         List<List<String>> compositions = new ArrayList<>();
         List<List<String>> pets = new ArrayList<>();
@@ -39,6 +39,13 @@ public class DbActions {
         }
         clients = clients.stream().distinct().collect(Collectors.toList());
         pets = pets.stream().distinct().collect(Collectors.toList());
+        fillClients(clients);
+        fillPets(pets);
+        fillComposition(compositions);
+    }
+
+    private static void fillClients(List<List<String>> clients) throws SQLException {
+        String sql;
         for (List<String> client : clients) {
             sql = "INSERT INTO client VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -48,7 +55,9 @@ public class DbActions {
             preparedStatement.setString(4, client.get(3));
             preparedStatement.executeUpdate();
         }
-
+    }
+    private static void fillPets(List<List<String>> pets) throws SQLException {
+        String sql;
         for (List<String> pet : pets) {
             sql = "INSERT INTO pet VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -57,7 +66,9 @@ public class DbActions {
             preparedStatement.setInt(3, Integer.parseInt(pet.get(2)));
             preparedStatement.executeUpdate();
         }
-
+    }
+    private static void fillComposition(List<List<String>> compositions) throws SQLException {
+        String sql;
         for (List<String> composition : compositions) {
             sql = "INSERT INTO client_pet_composition (client_id, pet_id) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -66,7 +77,6 @@ public class DbActions {
             preparedStatement.executeUpdate();
         }
     }
-
     public static void showDb() throws SQLException {
         showClients();
         showPets();
@@ -82,7 +92,6 @@ public class DbActions {
             System.out.print(", Name: " + clientResult.getString("name"));
             System.out.print(", Phone: " + clientResult.getString("phone_number") + "\n");
         }
-        ResultSet petResult = statement.executeQuery("select * from pet");
     }
 
     public static void showPets() throws SQLException {
@@ -99,8 +108,7 @@ public class DbActions {
         ResultSet compositionResult = statement.executeQuery("select * from client_pet_composition");
         System.out.print("TABLE CLIENT_PET_COMPOSITION\n");
         while (compositionResult.next()) {
-            System.out.print("ID " + compositionResult.getInt("id"));
-            System.out.print(", ID of client: " + compositionResult.getInt("client_id"));
+            System.out.print("ID of client: " + compositionResult.getInt("client_id"));
             System.out.print(", ID of pet: " + compositionResult.getInt("pet_id") + "\n");
         }
     }
