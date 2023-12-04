@@ -5,6 +5,7 @@ import ru.croc.barkhatnat.homework8.task16.exceptions.IdException;
 import ru.croc.barkhatnat.homework8.task16.exceptions.NewEntityException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PetDao {
@@ -12,7 +13,6 @@ public class PetDao {
     static int currentMedicalCard = 14;
 
     public Pet createPet(String name, Integer age, List<Client> clients) throws SQLException, NewEntityException {
-        DbActions.connectDb();
         String sql = "INSERT INTO pet VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, currentMedicalCard);
@@ -33,7 +33,6 @@ public class PetDao {
 
     //
     public Pet findPet(Integer medicalCardNumber) throws SQLException, IdException {
-        DbActions.connectDb();
         String sql = "SELECT * FROM pet WHERE medical_card = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, medicalCardNumber);
@@ -46,7 +45,6 @@ public class PetDao {
 
     //
     public Pet updatePet(Pet pet) throws SQLException {
-        DbActions.connectDb();
         String sql = "UPDATE pet SET  name = ?, age = ? WHERE medical_card = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, pet.getName());
@@ -64,11 +62,21 @@ public class PetDao {
     }
 
     public void deletePet(Integer medicalCardNumber) throws SQLException {
-        DbActions.connectDb();
         String sql = "DELETE FROM pet WHERE medical_card = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, medicalCardNumber);
         preparedStatement.execute();
+    }
+    public List<String> findClientPhoneNumbersBy(Pet pet) throws SQLException {
+        List<String> numbers = new ArrayList<>();
+        String sql = "SELECT phone_number FROM client JOIN client_pet_composition ON client.id = client_pet_composition.client_id WHERE client_pet_composition.pet_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, pet.getMedicalCard());
+        ResultSet result = preparedStatement.executeQuery();
+        while (result.next()) {
+            numbers.add(result.getString("phone_number"));
+        }
+        return numbers;
     }
 }
 

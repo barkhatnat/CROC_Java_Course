@@ -3,9 +3,9 @@ package ru.croc.barkhatnat.homework8.task16.classes;
 import java.util.Objects;
 
 public class Pet {
-    int medicalCard;
-    String name;
-    int age;
+    private int medicalCard;
+    private String name;
+    private int age;
 
     public Pet(int medicalCard, String name, int age) {
         this.medicalCard = medicalCard;

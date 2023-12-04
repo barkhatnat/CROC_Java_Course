@@ -13,7 +13,7 @@ import static ru.croc.barkhatnat.homework8.task15.DbActions.*;
 
 public class Main {
     public static void main(String[] args) {
-        String fileInfo = "C:\\Users\\Mvideo\\Documents\\GitHub\\CROC_Java_Course\\HomeTasks\\src\\ru\\croc\\barkhatnat\\homework8\\task15\\info.csv";
+        String fileInfo = "HomeTasks\\src\\ru\\croc\\barkhatnat\\homework8\\task15\\info.csv";
         try {
             List<List<String>> records = readCsv(fileInfo);
             createDb();
@@ -22,8 +22,6 @@ public class Main {
             showDb();
             ClientDao clientDao = new ClientDao();
             PetDao petDao = new PetDao();
-            CompositionDAO compositionDAO = new CompositionDAO();
-
             Client client = clientDao.createClient(new Client(48, "Бархатова", "Наталья", "+78005553535"));
             ArrayList<Client> petMasters = new ArrayList<>();
             petMasters.add(client);
@@ -48,10 +46,13 @@ public class Main {
             showClients();
             System.out.println("Composition table after deleting a client");
             showComposition();
-
             Client client2 = clientDao.findClient(4);
-            System.out.println(compositionDAO.findClientPhoneNumbersBy(pupirka));
-            System.out.println(compositionDAO.getAllPetsOf(client2));
+            System.out.println("Phone numbers of Пупырка owners:");
+            System.out.println(petDao.findClientPhoneNumbersBy(pupirka));
+            System.out.println("Pets of client with id=4:");
+            for (Pet pet: clientDao.getAllPetsOf(client2)){
+                System.out.println(pet.getName());
+            }
         } catch (SQLException | NewEntityException | IdException e) {
             throw new RuntimeException(e);
         }

@@ -3,16 +3,16 @@ package ru.croc.barkhatnat.homework8.task16.classes;
 import java.util.Objects;
 
 public class Client {
-    int id;
-    String surname;
-    String name;
-    String phone_number;
+    private int id;
+    private String surname;
+    private String name;
+    private String phoneNumber;
 
     public Client(int id, String surname, String name, String phone_number) {
         this.id = id;
         this.surname = surname;
         this.name = name;
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
     }
 
     public int getId() {
@@ -39,12 +39,12 @@ public class Client {
         this.name = name;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     @Override
     public boolean equals(Object obj) {
